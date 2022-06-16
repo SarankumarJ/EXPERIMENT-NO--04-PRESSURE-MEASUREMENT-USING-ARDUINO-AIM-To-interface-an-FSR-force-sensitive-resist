@@ -2,7 +2,7 @@
 
 
 ## AIM: 
-To interface an FSR(force sensitive resistor) and scale the output voltage obtained to pressure applied 
+To interface an FSR(force sensitive resistor) and measure the force applied, indicate the change in force applied using LEDs. 
  
 ### COMPONENTS REQUIRED:
 1.	FSR  (force sensitive resistor)
@@ -76,38 +76,85 @@ The easiest way to measure a resistive sensor is to connect one end to power and
 
 
 ### PROGRAM 
- ~~~
-#define echoPin 9
-#define trigPin 10
+ ~~~py
+// Define pins:
+#define fsrpin A0
+#define led1 2
+#define led2 3
+#define led3 4
+#define led4 5
+#define led5 6
+#define led6 7
 
-long duration;
-int distance;
-
+int fsrreading;
 void setup()
 {
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  Serial.begin(9600);
+  Serial.begin (9600);
+  
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
+  pinMode(led5, OUTPUT);
+  pinMode(led6, OUTPUT);
 }
 
 void loop()
 {
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
-  distance = duration * 0.034 / 2;
-  Serial.print("Distance: ");
-  Serial.print(distance);
-  Serial.println(" cm");
+  fsrreading = analogRead(fsrpin);
+  
+  Serial.println(fsrreading);
+  
+  if (fsrreading > 150)
+  {
+    digitalWrite(led1, HIGH);
+  }
+  else
+    digitalWrite(led1, LOW);
+  
+  if (fsrreading > 300)
+  {
+    digitalWrite(led2, HIGH);
+  }
+  else
+    digitalWrite(led2, LOW);
+  
+   if (fsrreading > 450)
+  {
+    digitalWrite(led3, HIGH);
+  }
+  else
+    digitalWrite(led3, LOW);
+  
+  
+   if (fsrreading > 600)
+  {
+    digitalWrite(led4, HIGH);
+  }
+  else
+    digitalWrite(led4, LOW);
+  
+   if (fsrreading > 750)
+  {
+    digitalWrite(led5, HIGH);
+  }
+  else
+    digitalWrite(led5, LOW);
+  
+   if (fsrreading > 900)
+  {
+    digitalWrite(led6, HIGH);
+  }
+  else
+    digitalWrite(led6, LOW);
+  
+}
 }
  ~~~
 ### OUTPUT:-
-![git](./1.png)
+![git](./Screenshot%202022-06-16%20180610.png)
 
 
 ### RESULTS : 
 
-Arduino uno is interfaced with FSR and output values are indicated on a graph.
+Thus the interfacing using FSR(force snsitive resister)is simulated in Thinker CAD.
